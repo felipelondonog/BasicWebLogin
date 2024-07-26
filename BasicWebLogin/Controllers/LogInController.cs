@@ -81,8 +81,8 @@ namespace BasicWebLogin.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+                //if (ModelState.IsValid)
+                //{
                     // Checks the password are the same before saving changes
                     if (loginModel.Pwd != loginModel.ConfirmPassword)
                     {
@@ -91,7 +91,7 @@ namespace BasicWebLogin.Controllers
                     }
 
                     // Checks the user email is not already used.
-                    if (_context.UserModels.FirstOrDefaultAsync(u => u.Email == loginModel.Email) != null)
+                    if (await _context.UserModels.FirstOrDefaultAsync(u => u.Email == loginModel.Email) != null)
                     {
                         ViewBag.Message = "The email is already registered.";
                         return View(loginModel);
@@ -108,11 +108,11 @@ namespace BasicWebLogin.Controllers
 
                     _context.UserModels.Add(user);
                     await _context.SaveChangesAsync();
+                ViewBag.Message = "Your account is disabled until you confirm your account, please check your email.";
+                    return RedirectToAction("LogIn", "LogIn");
+                //}
 
-                    return RedirectToAction(nameof(Index));
-                }
-
-                return View(loginModel);
+                //return View(loginModel);
             }
             catch (Exception ex)
             {

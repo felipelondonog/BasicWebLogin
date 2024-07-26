@@ -12,6 +12,10 @@ namespace BasicWebLogin.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.User.Claims.FirstOrDefault() == null)
+            {
+                return RedirectToAction("LogIn", "LogIn");
+            }
             ViewData["SessionUser"] = HttpContext.User.Claims.FirstOrDefault().Value;
             return View();
         }

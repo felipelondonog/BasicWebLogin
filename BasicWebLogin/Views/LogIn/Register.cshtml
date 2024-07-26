@@ -1,5 +1,41 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model BasicWebLogin.Models.LogIn
 @{
+    Layout = null;
 }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sign in</title>
+    <link rel="icon" type="image/x-icon" href="~/img/user.png" />
+    <link rel="stylesheet" href="~/css/LogIn.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login">
+        <img src="~/img/user.png" />
+        <h3>Welcome!</h3>
+        <h2>Basic LogIn Web App</h2>
+        <form asp-controller="LogIn" asp-action="Register" method="post" class="login-form">
+            <input type="text" placeholder="Username" asp-for="UserName" />
+            <input type="tel" placeholder="Phone number" asp-for="PhoneNumber" />
+            <input type="email" placeholder="Email" asp-for="Email" />
+            <input type="password" placeholder="Password" asp-for="Pwd" />
+            <input type="password" placeholder="Confirm your password" asp-for="ConfirmPassword" />
+            <button type="submit">Create your new account</button>
+            <a href="@Url.Action("LogIn", "LogIn")">Already have an account?</a>
+
+            @if (ViewBag.Message != null)
+            {
+                <br />
+                <br />
+                <label>@ViewBag.Message</label>
+            }
+        </form>
+    </div>
+</body>
+</html>

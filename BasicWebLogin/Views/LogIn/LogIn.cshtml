@@ -9,7 +9,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>LogIn</title>
-    @* <link rel="icon" type="image/x-icon" href="~/img/logoNuevoBlanco.png" /> *@
+    @*Here the page icon*@
+    <link rel="icon" type="image/x-icon" href="~/img/user.png" />
     <link rel="stylesheet" href="~/css/LogIn.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +18,8 @@
 </head>
 <body>
     <div class="login">
-        <img src="~/img/CES.png" />
+        @*Put here your logo*@
+        <img src="~/img/user.png" />
         <h3>Welcome!</h3>
         <h2>Basic LogIn Web App</h2>
         <form asp-controller="LogIn" asp-action="LogIn" method="post" class="login-form">
@@ -28,6 +30,8 @@
                 Keep me logged in.
             </label>
             <button type="submit">Login</button>
+            <a href="@Url.Action("Register", "LogIn")">Do not have an account?</a>
+            <a href="@Url.Action("ResetPassword", "LogIn")">Forgot your password?</a>
 
             @if (ViewBag.Message != null)
             {
