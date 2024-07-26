@@ -9,7 +9,6 @@
 *.user
 *.userosscache
 *.sln.docstates
-BasicWebLogin/appsettings.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -362,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsdappsettings.json
+/BasicWebLogin/appsettings.json
