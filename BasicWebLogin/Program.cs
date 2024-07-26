@@ -1,4 +1,5 @@
 using BasicWebLogin.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,15 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<LoginDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("LoginDB"))
     );
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/LogIn/LogIn";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    });
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -34,7 +44,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=LogIn}/{action=LogIn}/{id?}");
 
 app.MapRazorPages();
 

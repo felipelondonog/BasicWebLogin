@@ -1,0 +1,41 @@
+﻿@model BasicWebLogin.Models.LogIn
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LogIn</title>
+    @* <link rel="icon" type="image/x-icon" href="~/img/logoNuevoBlanco.png" /> *@
+    <link rel="stylesheet" href="~/css/LogIn.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login">
+        <img src="~/img/CES.png" />
+        <h3>Welcome!</h3>
+        <h2>Basic LogIn Web App</h2>
+        <form asp-controller="LogIn" asp-action="LogIn" method="post" class="login-form">
+            <input type="text" placeholder="Email" asp-for="Email" />
+            <input type="password" placeholder="Password" asp-for="Pwd" />
+            <label>
+                <input type="checkbox" asp-for="KeepLoggedIn" />
+                Keep me logged in.
+            </label>
+            <button type="submit">Login</button>
+
+            @if (ViewBag.Message != null)
+            {
+                <br />
+                <br />
+                <label>@ViewBag.Message</label>
+            }
+        </form>
+    </div>
+</body>
+</html>
