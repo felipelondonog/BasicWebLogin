@@ -18,6 +18,8 @@ namespace BasicWebLogin.Models
 
         public bool EmailConfirmed { get; set; }
 
+        public string Pwd { get; set; }
+
         public bool ResetPassword { get; set; }
 
         public string PhoneNumber { get; set; }
