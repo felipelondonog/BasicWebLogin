@@ -46,6 +46,12 @@ namespace BasicWebLogin.Controllers
                     return View(loginModel);
                 }
 
+                if (user.ResetPassword)
+                {
+                    ViewBag.Message = "You have a pending password reset, please check your email for more information.";
+                    return View(loginModel);
+                }
+
                 if(user.Pwd != GeneralUtilities.ConvertStringtoSHA256(loginModel.Pwd))
                 {
                     ViewBag.Message = "Incorrect password.";
@@ -146,6 +152,81 @@ namespace BasicWebLogin.Controllers
             }
         }
 
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(string email)
+        {
+            try
+            {
+                UserModel? user = await _context.UserModels.FirstOrDefaultAsync(u => u.Email == email);
+
+                if (user == null)
+                {
+                    ViewBag.Message = "We could not find any accounts with this email.";
+                    return View(email);
+                }
+                
+                // Updates ResetPassword property on DB
+                _context.UserModels
+                    .Where(u => u.Email == email)
+                    .ExecuteUpdate(u => u.SetProperty(p => p.ResetPassword, p => true));
+
+                await SendResetPasswordEmail(user);
+
+                TempData["ConfirmMessage"] = "We sent you an email with more information, please check your inbox.";
+                TempData.Keep();
+
+                return RedirectToAction("LogIn", "LogIn");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "Something happened. " + ex.Message;
+                return View();
+            }
+        }
+
+        public ActionResult UpdatePassword(string token)
+        {
+            ViewBag.Token = token;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePassword(LogIn loginModel)
+        {
+            try
+            {
+                ViewBag.Token = loginModel.Token;
+
+                if (loginModel.Pwd != loginModel.ConfirmPassword)
+                {
+                    ViewBag.Message = "Passwords do not match.";
+                    return View();
+                }
+
+                _context.UserModels
+                    .Where(u => u.Token == loginModel.Token)
+                    .ExecuteUpdate(u => u.SetProperty(p => p.ResetPassword, p => false));
+
+                _context.UserModels
+                    .Where(u => u.Token == loginModel.Token)
+                    .ExecuteUpdate(u => u.SetProperty(p => p.Pwd, p => GeneralUtilities.ConvertStringtoSHA256(loginModel.Pwd)));
+
+                TempData["ConfirmMessage"] = "Your password has been updated succesfully, you can log in now with your new password.";
+                TempData.Keep();
+                return RedirectToAction("LogIn", "LogIn");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "We could not update your password, please try again.";
+                return View(loginModel.Token);
+            }
+        }
+
         private async Task<IActionResult> SendConfirmationEmail(UserModel user)
         {
             try
@@ -162,6 +243,33 @@ namespace BasicWebLogin.Controllers
                 {
                     To = user.Email,
                     Subject = "Confirm your account",
+                    Content = htmlBody
+                });
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        private async Task<IActionResult> SendResetPasswordEmail(UserModel user)
+        {
+            try
+            {
+                // Sends confirmation E-mail
+                // Define the path where the template is located and gets the file content
+                string path = "Templates/ResetPassword.html";
+                string content = System.IO.File.ReadAllText(path);
+                // Builds the url and replaces it into the content
+                string url = String.Format("{0}://{1}{2}", Request.Scheme, Request.Headers["Host"], "/LogIn/UpdatePassword?token=" + user.Token);
+                string htmlBody = String.Format(content, user.UserName, url);
+                // Sends the email
+                await EmailService.SendEmail(new EmailModel()
+                {
+                    To = user.Email,
+                    Subject = "Reset your password",
                     Content = htmlBody
                 });
 
