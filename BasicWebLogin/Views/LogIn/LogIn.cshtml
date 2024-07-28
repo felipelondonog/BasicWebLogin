@@ -33,6 +33,12 @@
             <a href="@Url.Action("Register", "LogIn")">Do not have an account?</a>
             <a href="@Url.Action("ResetPassword", "LogIn")">Forgot your password?</a>
 
+            @if(TempData["ConfirmMessage"] != null)
+            {
+                <br />
+                <br />
+                <label>@TempData["ConfirmMessage"]</label>
+            }
             @if (ViewBag.Message != null)
             {
                 <br />

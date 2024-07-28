@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Confirm</title>
+</head>
+<body>
+    <div>
+        @if ((bool)ViewBag.Response)
+        {
+            <div style="background-color: lightgreen; display: flex; flex-direction: row; flex-wrap: wrap; margin: 0; padding: 10px 50px;">
+                <img src="https://www.iconpacks.net/icons/1/free-user-group-icon-296-thumb.png" width="100px" height="100px" />
+                <h1>You're ready to go!</h1>
+            </div>
+            <div style="margin-top: 10px; margin-left: 50px; flex-wrap: wrap; display: flex; flex-direction: column;">
+                <p>Your account has been activated, you can use it now</p>
+                <a href="@Url.Action("LogIn", "LogIn")" style="margin-right: auto; background-color: forestgreen; text-decoration: none; padding: 10px 20px; border-radius: 20px; color:white">Go to login</a>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <p>We could not confirm your email. Please try again.</p>
+            </div>
+        }
+    </div>
+</body>
+</html>
