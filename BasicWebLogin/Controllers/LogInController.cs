@@ -61,7 +61,8 @@ namespace BasicWebLogin.Controllers
                 // Creates scheme for keep user logged in using cookies
                 List<Claim> claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier, loginModel.Email)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, user.UserName)
                 };
 
                 ClaimsIdentity claimsId = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
