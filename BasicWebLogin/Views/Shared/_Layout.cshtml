@@ -8,12 +8,11 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BasicWebLogin.styles.css" asp-append-version="true" />
     <!--Optional styles-->
-    <link rel="stylesheet" href="~/css/Layout.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="font-family: 'Comfortaa', sans-serif;">
     <!--NAVBAR-->
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -33,32 +32,7 @@
                 </div>
             </div>
         </nav>
-    </header>@* 
-    <!-- SIDEBAR -->
-    <button type="button" class="burger" onclick="toggleSidebar()">
-        <span class="burger-icon"></span>
-    </button>
-    <div class="overlay"></div>
-    <div class="sidebar">
-        <div class="sidebar-username">@ViewData["SessionUser"]</div>
-        <div class="sidebar-role">BasicLoginWebApp</div>
-        <nav class="sidebar-menu">
-            <button type="button">
-                <a asp-controller="Home" asp-action="Index" style="text-decoration: none;">
-                    <img src="../assets/icon-home.svg" />
-                    <span>Home</span>
-                </a>
-            </button>
-        </nav>
-        <nav class="sidebar-menu bottom">
-            <button type="button">
-                <a asp-controller="Home" asp-action="LogOut" style="text-decoration: none;">
-                    <img src="../assets/icon-lock.svg" />
-                    <span>Log out</span>
-                </a>
-            </button>
-        </nav>
-    </div> *@
+    </header>
 
     <!-- CONTENT-->
     <div class="container">
@@ -69,16 +43,11 @@
     </div>
 
     <!-- FOOTER -->
-    <section>
-        <footer class="top">
-            @* <img src="../img/user.png" /> *@
-        </footer>
-        <footer class="bottom">
-            <div class="legal">
-                <span>© @DateTime.Now.Year All rights reserved. - Felipe Londoño García</span>
-            </div>
-        </footer>
-    </section>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Basic web login
+        </div>
+    </footer>
 
     <script type="text/javascript">
         const toggleSidebar = () => document.body.classList.toggle("open");

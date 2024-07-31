@@ -1,0 +1,55 @@
+﻿@model BasicWebLogin.Models.UserModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete your account? You cannot recover it once deleted.</h3>
+<div class="row">
+    <hr />
+    <partial name="_UserPartial" />
+    <div class="col-sm-8">
+        <h4>My account details</h4>
+        <hr />
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                @Html.DisplayNameFor(model => model.UserName)
+            </label>
+            <div class="col-sm-8">
+                @Html.DisplayFor(model => model.UserName)
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                @Html.DisplayNameFor(model => model.Email)
+            </label>
+            <div class="col-sm-8">
+                @Html.DisplayFor(model => model.Email)
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                @Html.DisplayNameFor(model => model.EmailConfirmed)
+            </label>
+            <div class="col-sm-8">
+                @Html.DisplayFor(model => model.EmailConfirmed)
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </label>
+            <div class="col-sm-8">
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </div>
+        </div>
+    </div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="MyAccount" asp-controller="UserModels">Return</a>
+    </form>
+</div>

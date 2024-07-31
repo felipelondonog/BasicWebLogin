@@ -1,0 +1,45 @@
+﻿@model BasicWebLogin.Models.UserModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Edit my information</h4>
+<hr />
+<div class="row">
+    <partial name="_UserPartial" />
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Token" class="form-control" />
+            <input type="hidden" asp-for="Email" class="form-control" />
+            <input type="hidden" class="form-check-input" asp-for="EmailConfirmed" />
+            <input type="hidden" asp-for="Pwd" class="form-control" />
+            <input type="hidden" class="form-check-input" asp-for="ResetPassword" />
+            <input type="hidden" class="form-check-input" asp-for="PhoneNumberConfirmed" />
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" readonly/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <a asp-action="MyAccount" asp-controller="UserModels" class="btn btn-primary">Return</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

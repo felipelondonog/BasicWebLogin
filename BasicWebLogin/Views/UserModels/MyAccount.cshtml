@@ -1,0 +1,48 @@
+﻿@model BasicWebLogin.Models.UserModel
+
+@{
+    ViewData["Title"] = "My account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>My account</h1>
+
+<div class="row">
+    <partial name="_UserPartial" />
+    <div class="col-sm-8">
+        <h4>My account details</h4>
+        <hr />
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                @Html.DisplayNameFor(model => model.UserName)
+            </label>
+            <div class="col-sm-8">
+                @Html.DisplayFor(model => model.UserName)
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                @Html.DisplayNameFor(model => model.Email)
+            </label>
+            <div class="col-sm-8">
+                @Html.DisplayFor(model => model.Email)
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                @Html.DisplayNameFor(model => model.EmailConfirmed)
+            </label>
+            <div class="col-sm-8">
+                @Html.DisplayFor(model => model.EmailConfirmed)
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </label>
+            <div class="col-sm-8">
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </div>
+        </div>
+    </div>
+</div>

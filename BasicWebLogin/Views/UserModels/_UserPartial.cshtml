@@ -1,0 +1,21 @@
+﻿<div class="col-sm-3">
+    <ul class="list-group">
+        <a class="list-group-item btn btn-warning" asp-controller="UserModels" asp-action="Edit">
+            Edit information
+        </a>
+        <a class="list-group-item btn btn-warning" asp-controller="UserModels" asp-action="ChangePassword">
+            Change password
+        </a>
+        <a class="list-group-item btn btn-danger" asp-controller="UserModels" asp-action="Delete">
+            Delete account
+        </a>
+        <a class="list-group-item btn btn-primary" asp-controller="Home" asp-action="Index">
+            Return
+        </a>
+        @if(ViewBag.Message != null)
+        {
+            <br />
+            <label>@ViewBag.Message</label>
+        }
+    </ul>
+</div>

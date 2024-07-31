@@ -1,8 +1,10 @@
-﻿<ul class="navbar-nav">
+﻿@using System.Security.Claims;
+
+<ul class="navbar-nav">
     @if (User.Claims.FirstOrDefault() != null)
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="UserModels" asp-action="Index">Hello @User.Identity?.Name</a>
+            <a class="nav-link text-dark" asp-controller="UserModels" asp-action="MyAccount">Hello @User.Identity?.Name!</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-controller="Home" asp-action="LogOut">

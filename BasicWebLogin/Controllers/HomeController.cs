@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics;
 using BasicWebLogin.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using System.Security.Claims;
 
 namespace BasicWebLogin.Controllers
 {
@@ -25,21 +27,13 @@ namespace BasicWebLogin.Controllers
                 return RedirectToAction("LogIn", "LogIn");
             }
 
-            string? email = HttpContext.User.Claims.FirstOrDefault().Value;
+            string? email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
 
             // Checks if user has email confirmed
             UserModel? user = await _context.UserModels.FirstOrDefaultAsync(u => u.Email == email);
-            if (user.EmailConfirmed == false)
-            {
-                return RedirectToAction("LogIn", "LogIn");
-            }
 
-            ViewData["SessionUser"] = HttpContext.User.Claims.FirstOrDefault().Value;
-            return View();
-        }
+            if (user == null || !user.EmailConfirmed) return RedirectToAction("LogIn", "LogIn");
 
-        public IActionResult Privacy()
-        {
             return View();
         }
 

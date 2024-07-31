@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 
 namespace BasicWebLogin.Utilities
