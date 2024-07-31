@@ -8,6 +8,6 @@ Build appsettings.json. Check appsettingsExample.json as a guide.
 Here is where credentials and DB connections are setted, modify them with your credentials (email, password, smtp-server and host).
 Also modify DB connection string.
 
-##3. Front-end and wwwroot
+## 3. Front-end and wwwroot
 Feel free to add assets, images and styles. This project frontend is pretty simple so you can personalize it as you want using css or directly
 modifying the views. Be careful with the asp variables, controllers and models.
